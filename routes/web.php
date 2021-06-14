@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PostingController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/postings', [PostingController::class, 'index']);
+
+Route::get('/search/create', [SearchController::class, 'create']);
+Route::get('/search/{search}', [SearchController::class, 'show']);
+
+Route::get('/', [SearchController::class, 'create']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
